@@ -1,0 +1,22 @@
+FROM rasa/rasa:3.2.6-full
+
+WORKDIR /app
+
+COPY requirements.txt /app/
+COPY data /app/data
+COPY config.yml /app/
+COPY credentials.yml /app/
+COPY domain.yml /app/
+COPY endpoints.yml /app/
+
+USER root
+
+# init qq bot dependencies
+RUN set -x; pip install -r /app/requirements.txt && \
+    rasa train && \
+    rm endpoints.yml domain.yml credentials.yml config.yml && \
+    rm -rf data models
+
+ENTRYPOINT ["rasa", "run", "--enable-api"]
+
+CMD ""

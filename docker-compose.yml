@@ -1,0 +1,15 @@
+version: '3.0'
+services:
+  rasa:
+    build:
+      context: .
+      dockerfile: Dockerfile_rasa
+    restart: always
+    command:
+      - "--auth-token ${RASA_AUTH_TOKEN}"
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./models:/app/models
+      - ./credentials.yml:/app/credentials.yml
+      - ./endpoints.yml:/app/endpoints.yml
