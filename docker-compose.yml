@@ -6,7 +6,9 @@ services:
       dockerfile: Dockerfile_rasa
     restart: always
     command:
-      - "--auth-token ${RASA_AUTH_TOKEN}"
+      - "--enable-api"
+      - "--auth-token"
+      - "${RASA_AUTH_TOKEN}"
     ports:
       - "5005:5005"
     volumes:

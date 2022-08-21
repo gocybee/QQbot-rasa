@@ -17,6 +17,6 @@ RUN set -x; pip install -r /app/requirements.txt && \
     rm endpoints.yml domain.yml credentials.yml config.yml && \
     rm -rf data models
 
-ENTRYPOINT ["rasa", "run", "--enable-api"]
+ENTRYPOINT ["rasa", "run"]
 
 CMD ""
