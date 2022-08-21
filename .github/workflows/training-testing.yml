@@ -18,7 +18,7 @@ jobs:
           publish_summary: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload model
-        if: github.ref == 'refs/heads/master'
+        if: startsWith(github.event.ref, 'refs/tags') || github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@master
         with:
           name: model
