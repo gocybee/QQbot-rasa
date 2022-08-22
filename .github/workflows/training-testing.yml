@@ -26,33 +26,34 @@ jobs:
           name: model
           path: models
 
-  build-images:
-    name: Build and Push Images
-    runs-on: ubuntu-latest
-    env:
-      IS_PUSH_EVENT: ${{ github.event_name == 'push' }}
-    steps:
-      - uses: actions/checkout@v2
+#  Do not build image
+#  build-images:
+#    name: Build and Push Images
+#    runs-on: ubuntu-latest
+#    env:
+#      IS_PUSH_EVENT: ${{ github.event_name == 'push' }}
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Set image tag
+#        run: |
+#          if [[ $IS_PUSH_EVENT == "false" ]]
+#          then
+#            IMAGE_TAG=${{ github.head_ref }}
+#          else
+#            IMAGE_TAG=$(basename ${{ github.ref }})
+#          fi
+#          echo "IMAGE_TAG=${IMAGE_TAG}-${{ github.sha }}" >> $GITHUB_ENV
 
-      - name: Set image tag
-        run: |
-          if [[ $IS_PUSH_EVENT == "false" ]]
-          then
-            IMAGE_TAG=${{ github.head_ref }}
-          else
-            IMAGE_TAG=$(basename ${{ github.ref }})
-          fi
-          echo "IMAGE_TAG=${IMAGE_TAG}-${{ github.sha }}" >> $GITHUB_ENV
-
-      - name: Build rasa Docker image
-        run: |
-          docker build -f ./Dockerfile_rasa . \
-            --tag igxnon/qqbot-rasa:$IMAGE_TAG
-          mkdir -p images
-          docker save -o ./images/docker-image.tar igxnon/qqbot-rasa:$IMAGE_TAG
-
-      - name: Upload image
-        uses: actions/upload-artifact@master
-        with:
-          name: docker-image
-          path: images
+#      - name: Build rasa Docker image
+#        run: |
+#          docker build -f ./Dockerfile_rasa . \
+#            --tag igxnon/qqbot-rasa:$IMAGE_TAG
+#          mkdir -p images
+#          docker save -o ./images/docker-image.tar igxnon/qqbot-rasa:$IMAGE_TAG
+#
+#      - name: Upload image
+#        uses: actions/upload-artifact@master
+#        with:
+#          name: docker-image
+#          path: images
