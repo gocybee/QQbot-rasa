@@ -14,7 +14,7 @@ USER root
 # init qq bot dependencies
 RUN set -x; pip install -r /app/requirements.txt && \
     rasa train && \
-    rm endpoints.yml domain.yml credentials.yml config.yml && \
+    rm endpoints.yml domain.yml credentials.yml other_conf.yml && \
     rm -rf data models
 
 ENTRYPOINT ["rasa", "run"]
