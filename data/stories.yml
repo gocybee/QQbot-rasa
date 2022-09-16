@@ -28,6 +28,11 @@ stories:
     - intent: ask_make_huo
     - action: utter_make_huo
 
+- story: ask 3G path
+  steps:
+    - intent: three_g
+    - action: utter_3g
+
 - story: drinking
   steps:
     - intent: ask_drinking

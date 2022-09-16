@@ -11,10 +11,12 @@ COPY endpoints.yml /app/
 
 USER root
 
-# init qq bot dependencies
+# init qq bot rasa dependencies.
+# the fastest way to install all dependencies is trying
+# to run it and let it install by self.
 RUN set -x; pip install -r /app/requirements.txt && \
     rasa train && \
-    rm endpoints.yml domain.yml credentials.yml other_conf.yml && \
+    rm endpoints.yml domain.yml credentials.yml config.yml && \
     rm -rf data models
 
 ENTRYPOINT ["rasa", "run"]
